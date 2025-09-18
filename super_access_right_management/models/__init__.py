@@ -1,1 +1,1 @@
-from . import access_right_mgmt
+from . import access_right_mgmt, revoke_action

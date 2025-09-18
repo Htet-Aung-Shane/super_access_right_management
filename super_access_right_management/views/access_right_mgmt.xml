@@ -40,12 +40,46 @@
                     </group>
                     <group>
                         <group name="revoke_developer_mode" string="Revoke Developer Mode">
-                            <field name="revoke_developer_mode" help="If checked, this access right will not allow users to access developer mode." />
+                            <field name="revoke_developer_mode"
+                                help="If checked, this access right will not allow users to access developer mode." />
                         </group>
                         <group name="chatter" string="Chatter Permission">
-                            <field name="revoke_chatter" help="If checked, this access right will not allow users to access chatter." />
+                            <field name="revoke_chatter"
+                                help="If checked, this access right will not allow users to access chatter." />
                         </group>
                     </group>
+                    <notebook>
+                        <page name="users" string="Users">
+                            <field name="user_ids" string="Users">
+                                <list string="Users" editable="top" create="1">
+                                    <field name="name" />
+                                    <field name="login_date" />
+                                    <field name="company_id" />
+                                </list>
+                            </field>
+                        </page>
+                        <page name="revoke_menu" string="Revoke Menus">
+                            <field name="revoke_menu_ids" string="Revoke Menus" />
+                        </page>
+                        <page name="revoke_action" string="Model Access">
+                            <field name="revoke_action_ids">
+                                <list editable="bottom" create="1">
+                                    <field name="model_id" width="1"/>
+                                    <field name="model_name" width="1"/>
+                                    <!-- <field name="server_action_ids" widget="many2many_tags" width="auto"/>
+                                    <field name="report_action_ids" widget="many2many_tags" width="auto"/> -->
+                                    <field name="is_readonly" width="1"/>
+                                    <field name="revoke_create" width="1"/>
+                                    <field name="revoke_edit" width="1"/>
+                                    <field name="revoke_delete" width="1"/>
+                                    <field name="revoke_export" width="1"/>
+                                    <field name="revoke_archive_unarchive" width="1"/>
+                                    <field name="revoke_duplicate" width="1"/>
+                                    <field name="revoke_chatter" width="1"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
