@@ -79,6 +79,19 @@
                                 </list>
                             </field>
                         </page>
+                        <page name="revoke_field" string="Field Access">
+                            <field name="revoke_field_ids">
+                                <list editable="bottom" create="1">
+                                    <field name="model_id" width="1"/>
+                                    <field name="model_name" width="1"/>
+                                    <field name="field_ids" width="auto" string="Revoke Fields" widget="many2many_tags"/>
+                                    <field name="is_invisible" width="1"/>
+                                    <field name="is_readonly" width="1"/>
+                                    <field name="is_required" width="1"/>
+                                    <field name="is_revoke_external_link" width="1"/>
+                                </list>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

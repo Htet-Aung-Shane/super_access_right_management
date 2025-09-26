@@ -15,3 +15,5 @@ class AccessRightsMgmt(models.Model):
     revoke_menu_ids = fields.Many2many('ir.ui.menu', string="Revoke Menu")
     #hide action
     revoke_action_ids = fields.Many2many('revoke.action', string="Revoke Action")
+    #hide field
+    revoke_field_ids = fields.Many2many('revoke.field', string="Revoke Field")
