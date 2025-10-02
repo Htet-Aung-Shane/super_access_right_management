@@ -5,16 +5,18 @@ class RevokeAction(models.Model):
     _name = 'revoke.action'
     _description = "Revoke Action Access Rights"
 
-    access_right_mgmt_id = fields.Many2one('access.right.mgmt', 'Access Management')
-    model_id = fields.Many2one('ir.model', 'Model',compute="_compute_model_id",store=True,readonly=False)
-    model_name = fields.Char(string='Model Name', related='model_id.model', readonly=False, store=True)
-    server_action_ids = fields.Many2many('action.data', 'remove_action_server_action_data_rel_ah', 'remove_action_id',
-                                         'server_action_id', 'Hide Actions',
+    access_right_mgmt_id = fields.Many2one(
+        'access.right.mgmt', 'Access Management')
+    model_id = fields.Many2one(
+        'ir.model', 'Model', compute="_compute_model_id", store=True, readonly=False)
+    model_name = fields.Char(
+        string='Model Name', related='model_id.model', readonly=False, store=True)
+    server_action_ids = fields.Many2many('action.data', 'revoke_action_server_action_data_rel_ah', 'revoke_action_id',
+                                         'server_action_id', 'Revoke Actions',
                                          domain="[('action_id.binding_model_id','=',model_id),('action_id.type','!=','ir.actions.report')]")
-    report_action_ids = fields.Many2many('action.data', 'remove_action_report_action_data_rel_ah', 'remove_action_id',
-                                         'report_action_id', 'Hide Reports',
+    report_action_ids = fields.Many2many('action.data', 'revoke_action_report_action_data_rel_ah', 'revoke_action_id',
+                                         'report_action_id', 'Revoke Reports',
                                          domain="[('action_id.binding_model_id','=',model_id),('action_id.type','=','ir.actions.report')]")
-
     revoke_export = fields.Boolean('Revoke Export')
     is_readonly = fields.Boolean('Read-Only')
 
@@ -29,6 +31,7 @@ class RevokeAction(models.Model):
     @api.depends('model_name')
     def _compute_model_id(self):
         for rec in self:
-            model_id = self.env['ir.model'].search([('model','=',rec.model_name)]).id
+            model_id = self.env['ir.model'].search(
+                [('model', '=', rec.model_name)]).id
             if model_id:
                 rec.model_id = model_id

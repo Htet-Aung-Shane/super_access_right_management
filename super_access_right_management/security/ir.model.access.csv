@@ -1,5 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_access_right_mgmt,Access Right Management,model_access_right_mgmt,base.group_user,1,1,1,1
 access_revoke_action,Revoke Action,model_revoke_action,base.group_user,1,1,1,1
+access_action_data,Revoke Action Data,model_action_data,base.group_user,1,1,1,1
 access_revoke_field,Revoke Field,model_revoke_field,base.group_user,1,1,1,1
 access_revoke_button_tab,Revoke Button Tab,model_revoke_button_tab,base.group_user,1,1,1,1
+access_access_domain,Revoke Access Domain,model_access_domain,base.group_user,1,1,1,1
+access_store_model_nodes,Store Model Node,model_store_model_nodes,base.group_user,1,1,1,1
