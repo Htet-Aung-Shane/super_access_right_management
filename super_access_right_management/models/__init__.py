@@ -1,1 +1,1 @@
-from . import access_right_mgmt, revoke_action, revoke_field, revoke_button_tab, access_domain, action_data, store_model_nodes
+from . import access_right_mgmt, revoke_action, revoke_field, revoke_button_tab, access_domain, action_data, store_model_nodes,ir_actions_actions
