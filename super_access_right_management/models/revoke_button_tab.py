@@ -105,20 +105,16 @@ class RevokeButtonTab(models.Model):
             for view in view_list:
                 for views in view_obj.search(
                         [('model', '=', self.model_name), ('type', '=', view), ('inherit_id', '=', False)]):
-                    # print(views)
                     res = self.env[self.model_name].sudo().get_view(view_id=views.id, view_type=view)
                     doc = etree.XML(res['arch'])
-                    # print(doc)
 
                     object_button = doc.xpath("//button[@type='object']")
                     for btn in object_button:
                         string_value = btn.get('string')
-                        # print(string_value)
                         if btn.get('name') and string_value:
                             domain = [('button_type', '=', btn.get('type')), ('attribute_string', '=', string_value),
                                       ('attribute_name', '=', btn.get('name')), ('model_id', '=', self.model_id.id),
                                       ('node_option', '=', 'button')]
-                            # print(domain)
                             if not store_model_nodes_obj.search(domain):
                                 self.with_context(string_value=string_value)._store_btn_data(btn)
 
@@ -137,7 +133,6 @@ class RevokeButtonTab(models.Model):
                             if not store_model_nodes_obj.search(domain):
                                 self.with_context(string_value=string_value)._store_btn_data(btn)
 
-                    ## Tab Extraction
                     page_list = doc.xpath("//page")
                     if page_list:
                         for page in page_list:

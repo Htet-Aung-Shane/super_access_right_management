@@ -1,11 +1,9 @@
-from odoo import api, fields, models, tools
-
+from odoo import api, models
 
 class IrActionsActions(models.Model):
     _inherit = 'ir.actions.actions'
 
-
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         res = super(IrActionsActions, self).create(vals)
         action_data_obj = self.env['action.data']

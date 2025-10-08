@@ -33,18 +33,18 @@
                             <field name="name" />
                         </group>
                         <group name="active_readonly_chatter" string="Is Active/Readonly">
-                            <field name="active" string="Is Active This Access Rights" />
-                            <field name="is_readonly"
+                            <field name="active" string="Is Active This Access Rights" widget="boolean_toggle" />
+                            <field name="is_readonly" widget="boolean_toggle"
                                 help="If checked, this access right will be readonly for all users granted in this." />
                         </group>
                     </group>
                     <group>
                         <group name="revoke_developer_mode" string="Revoke Developer Mode">
-                            <field name="revoke_developer_mode"
+                            <field name="revoke_developer_mode" widget="boolean_toggle"
                                 help="If checked, this access right will not allow users to access developer mode." />
                         </group>
                         <group name="chatter" string="Chatter Permission">
-                            <field name="revoke_chatter"
+                            <field name="revoke_chatter" widget="boolean_toggle"
                                 help="If checked, this access right will not allow users to access chatter." />
                         </group>
                     </group>

@@ -11,6 +11,7 @@
     "data": [
         'security/ir.model.access.csv',
         'views/access_right_mgmt.xml',
+        'views/res_users.xml',
     ],
     'module_type': 'official',
     'post_init_hook': 'post_install_action_dup_hook'
