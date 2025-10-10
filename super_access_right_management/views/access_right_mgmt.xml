@@ -170,7 +170,8 @@
         <field name="res_model">access.right.mgmt</field>
         <field name="view_mode">list,form,search</field>
     </record>
-    <menuitem name="Super Access Rights" id="access_rights_management_root"
+    <menuitem name="Super Access Rights" id="access_rights_management_root" 
+        groups="super_access_right_management.super_access_right_control_group"
         web_icon="super_access_right_management,static/description/icon.png" sequence="200" />
 
     <menuitem id="access_rights_management_detail" name="Super Access Rights"

@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//notebook" position="inside">
-                <page string="Access Rights Management">
+                <page string="Access Rights Management" groups="super_access_right_management.super_access_right_control_group">
                     <field name='access_rights_mgmt_ids'>
                         <list>
                             <field name="name"/>
