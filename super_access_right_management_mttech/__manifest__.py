@@ -1,5 +1,5 @@
 {
-    "name": "Super Access Right",
+    "name": "Super Access Right Management System",
     "description": "Access Right Management System Developed by MT Tech",
     "category": "Customizations",
     "author": "MT Tech",
