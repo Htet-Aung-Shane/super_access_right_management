@@ -25,3 +25,29 @@ class AccessRightsMgmt(models.Model):
         'revoke.button.tab','access_right_mgmt_id', string="Revoke Button Tab")
     # access_domain
     domain_ids = fields.One2many('access.domain','access_right_mgmt_id', string="Access Domain")
+
+    @api.model
+    def is_archive_unarchive(self, model):
+        revoke_actions = self.env['revoke.action'].sudo().search([
+            ('access_right_mgmt_id', 'in', self.env.user.access_rights_mgmt_ids.ids),
+            ('model_id.model', '=', model)])
+        result = False
+        if revoke_actions:
+            for revoke_action in revoke_actions:
+                if revoke_action.revoke_archive_unarchive:
+                    result = True
+
+        return result
+    
+    @api.model
+    def is_export(self, model):
+        revoke_actions = self.env['revoke.action'].sudo().search([
+            ('access_right_mgmt_id', 'in', self.env.user.access_rights_mgmt_ids.ids),
+            ('model_id.model', '=', model)])
+        result = False
+        if revoke_actions:
+            for revoke_action in revoke_actions:
+                if revoke_action.revoke_export:
+                    result = True
+
+        return result
