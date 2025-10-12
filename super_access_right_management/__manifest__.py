@@ -7,9 +7,9 @@
     'application': True,
     'installable': True,
     "auto_install": False,
-    "version": "18.0.1.0.0",
-    "price": 120.00,
-    "currency": "USD",
+    "version": "LGPL-3",
+    # "price": 120.00,
+    # "currency": "USD",
     'depends': ['web', 'base'],
     "data": [
         'security/ir.model.access.csv',
