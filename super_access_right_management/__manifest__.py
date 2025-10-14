@@ -8,9 +8,8 @@
     'installable': True,
     "auto_install": False,
     "version": "LGPL-3",
-    # "price": 120.00,
-    # "currency": "USD",
     'depends': ['web', 'base'],
+    "version": "18.0.0.0",
     "data": [
         'security/ir.model.access.csv',
         'security/access_super_access_right_mgmt.xml',
@@ -21,7 +20,6 @@
         'web.assets_backend': [
             '/super_access_right_management/static/src/js/action_menu.js',
         ],
-
     },
     'images': [
         'static/description/banner.png',
