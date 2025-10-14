@@ -65,7 +65,7 @@ class BaseModel(models.AbstractModel):
             res['arch'] = etree.tostring(
                 doc, encoding='unicode').replace('&amp;quot;', '&quot;')
         else:
-            doc = self.action_access_right_management(res['model'], doc)
+            doc = self.action_access_right_management(res['model'], doc, doc_type=view_type)
             res['arch'] = etree.tostring(doc, encoding='unicode')
 
         return res
@@ -173,7 +173,7 @@ class BaseModel(models.AbstractModel):
                 return True
         return False
 
-    def action_access_right_management(self, model, doc=None):
+    def action_access_right_management(self, model, doc=None, doc_type='form'):
         access_revoke_action_model_ids = self.env['revoke.action'].search([
             ('access_right_mgmt_id.user_ids', 'in', self.env.user.id),
             ('access_right_mgmt_id.active', '=', True),
@@ -194,8 +194,9 @@ class BaseModel(models.AbstractModel):
                     create, delete, edit = 'false', 'false', 'false'
                 if revoke_action_ids.revoke_duplicate:
                     duplicate = 'false'
-            doc.attrib.update(
-                {'create': create, 'delete': delete, 'edit': edit, 'duplicate': duplicate})
+            if doc_type == 'form':
+                doc.attrib.update(
+                    {'create': create, 'delete': delete, 'edit': edit, 'duplicate': duplicate})
 
         return doc
 
@@ -231,4 +232,4 @@ class BaseModel(models.AbstractModel):
             for o2m_model in list(restrict_mo2m_model.values()):
                 self.hide_field_access_right_management(
                     o2m_model, doc, doc_type='list')
-                self.action_access_right_management(o2m_model, doc)
+                self.action_access_right_management(o2m_model, doc, doc_type='list')
