@@ -7,6 +7,8 @@
     'application': True,
     'installable': True,
     "auto_install": False,
+    "price": 129.00,
+    "currency": "USD",
     "version": "LGPL-3",
     'depends': ['web', 'base'],
     "version": "18.0.0.0",
