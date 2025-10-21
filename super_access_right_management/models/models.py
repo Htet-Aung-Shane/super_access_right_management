@@ -1,3 +1,4 @@
+from typing import Any
 import odoo.fields
 from odoo import api, fields, models
 from lxml import etree
@@ -65,7 +66,7 @@ class BaseModel(models.AbstractModel):
             res['arch'] = etree.tostring(
                 doc, encoding='unicode').replace('&amp;quot;', '&quot;')
         else:
-            doc = self.action_access_right_management(res['model'], doc, doc_type=view_type)
+            doc = self.action_access_right_management(res['model'], doc)
             res['arch'] = etree.tostring(doc, encoding='unicode')
 
         return res
@@ -173,7 +174,7 @@ class BaseModel(models.AbstractModel):
                 return True
         return False
 
-    def action_access_right_management(self, model, doc=None, doc_type='form'):
+    def action_access_right_management(self, model, doc=None):
         access_revoke_action_model_ids = self.env['revoke.action'].search([
             ('access_right_mgmt_id.user_ids', 'in', self.env.user.id),
             ('access_right_mgmt_id.active', '=', True),
@@ -194,9 +195,8 @@ class BaseModel(models.AbstractModel):
                     create, delete, edit = 'false', 'false', 'false'
                 if revoke_action_ids.revoke_duplicate:
                     duplicate = 'false'
-            if doc_type == 'form':
-                doc.attrib.update(
-                    {'create': create, 'delete': delete, 'edit': edit, 'duplicate': duplicate})
+            doc.attrib.update(
+                {'create': create, 'delete': delete, 'edit': edit, 'duplicate': duplicate})
 
         return doc
 
@@ -212,7 +212,7 @@ class BaseModel(models.AbstractModel):
             restrict_o2m_model = self.env['revoke.action'].search([
                 ('access_right_mgmt_id.user_ids', 'in', self.env.user.id),
                 ('access_right_mgmt_id.active', '=', True),
-                ('model_id.model', 'in', list(restrict_mo2m_model.values()))
+                ('model_id.model', 'in', list[Any](restrict_mo2m_model.values()))
             ])
             if restrict_o2m_model:
                 for key, value in restrict_mo2m_model.items():
@@ -220,11 +220,11 @@ class BaseModel(models.AbstractModel):
                         if rest.model_id.model == value:
                             for f in doc.xpath("//field[@name='" + key + "']//list"):
                                 options = dict()
-                                if rest.restrict_create:
+                                if rest.revoke_create:
                                     options['create'] = '0'
-                                if rest.restrict_edit:
+                                if rest.revoke_edit:
                                     options['edit'] = '0'
-                                if rest.restrict_delete:
+                                if rest.revoke_delete:
                                     options['delete'] = '0'
                                 f.attrib.update(options)
 
@@ -232,4 +232,35 @@ class BaseModel(models.AbstractModel):
             for o2m_model in list(restrict_mo2m_model.values()):
                 self.hide_field_access_right_management(
                     o2m_model, doc, doc_type='list')
-                self.action_access_right_management(o2m_model, doc, doc_type='list')
+                self.action_access_right_management_o2m(o2m_model, doc)
+
+    def action_access_right_management_o2m(self, model, doc=None):
+        access_revoke_action_model_ids = self.env['revoke.action'].search([
+            ('access_right_mgmt_id.user_ids', 'in', self.env.user.id),
+            ('access_right_mgmt_id.active', '=', True),
+            ('model_id.model', '=', model)])
+        if access_revoke_action_model_ids:
+            delete = 'true'
+            edit = 'true'
+            create = 'true'
+            duplicate = 'true'
+            for revoke_action_ids in access_revoke_action_model_ids:
+                if revoke_action_ids.revoke_create:
+                    create = 'false'
+                if revoke_action_ids.revoke_edit:
+                    edit = 'false'
+                if revoke_action_ids.revoke_delete:
+                    delete = 'false'
+                if revoke_action_ids.is_readonly:
+                    create, delete, edit = 'false', 'false', 'false'
+                if revoke_action_ids.revoke_duplicate:
+                    duplicate = 'false'
+
+            for page in doc.xpath("//page"):
+                for list_view in page.xpath(".//list"):
+                    list_parent = list_view.getparent()
+                    field_name = list_parent.get('name')
+                    comodel = self._fields.get(field_name).comodel_name if field_name in self._fields else None
+                    if comodel == model:
+                        list_view.attrib.update({'create': create, 'delete': delete, 'edit': edit,'duplicate':duplicate})
+        return doc
