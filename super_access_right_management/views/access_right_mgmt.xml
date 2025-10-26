@@ -11,14 +11,14 @@
         </field>
     </record>
 
-    <record id="access_right_mgmt_view_list" model="ir.ui.view">
-        <field name="name">access_right_mgmt_view_list</field>
+    <record id="access_right_mgmt_view_tree" model="ir.ui.view">
+        <field name="name">access_right_mgmt_view_tree</field>
         <field name="model">access.right.mgmt</field>
         <field name="arch" type="xml">
-            <list>
+            <tree>
                 <field name="name" />
                 <field name="user_ids" widget="many2many_tags" />
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -51,11 +51,11 @@
                     <notebook>
                         <page name="users" string="Users">
                             <field name="user_ids" string="Users">
-                                <list string="Users" editable="top" create="1">
+                                <tree string="Users" editable="top" create="1">
                                     <field name="name" />
                                     <field name="login_date" />
                                     <field name="company_id" />
-                                </list>
+                                </tree>
                             </field>
                         </page>
                         <page name="revoke_menu" string="Revoke Menus">
@@ -63,7 +63,7 @@
                         </page>
                         <page name="revoke_action" string="Model Access">
                             <field name="revoke_action_ids">
-                                <list editable="bottom">
+                                <tree editable="bottom">
                                     <field name="model_id" width="1" />
                                     <field name="model_name" width="1" />
                                     <field name="server_action_ids" widget="many2many_tags"
@@ -78,12 +78,12 @@
                                     <field name="revoke_archive_unarchive" width="1" />
                                     <field name="revoke_duplicate" width="1" />
                                     <field name="revoke_chatter" width="1" />
-                                </list>
+                                </tree>
                             </field>
                         </page>
                         <page name="revoke_field" string="Field Access">
                             <field name="revoke_field_ids">
-                                <list editable="bottom" create="1">
+                                <tree editable="bottom" create="1">
                                     <field name="model_id" width="1" />
                                     <field name="model_name" width="1" />
                                     <field name="field_ids" string="Revoke Fields"
@@ -92,12 +92,12 @@
                                     <field name="is_readonly" width="1" />
                                     <field name="is_required" width="1" />
                                     <field name="is_revoke_external_link" width="1" />
-                                </list>
+                                </tree>
                             </field>
                         </page>
                         <page name="revoke_button_tab" string="Button Tab Access">
                             <field name="revoke_button_tab_ids">
-                                <list editable="bottom" create="1">
+                                <tree editable="bottom" create="1">
                                     <field name="model_id" width="1" />
                                     <field name="model_name" width="1" />
                                     <field name="btn_model_nodes_ids" widget="many2many_tags"
@@ -106,16 +106,16 @@
                                     <field name="page_model_nodes_ids" widget="many2many_tags"
                                         domain="[('model_id','=',model_id),('node_option','=','page')]"
                                         options="{'no_create': True}" width="1" />
-                                </list>
+                                </tree>
                             </field>
                         </page>
                         <page name="revoke_access_domain" string="Access Domain">
                             <field name="domain_ids">
-                                <list>
+                                <tree>
                                     <field name="model_id" />
                                     <field name="model_name" />
                                     <field name="domain" optional="hide" />
-                                </list>
+                                </tree>
                                 <form>
                                     <group>
                                         <field name="model_id" />
@@ -168,7 +168,7 @@
         <field name="name">Super Access Rights</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">access.right.mgmt</field>
-        <field name="view_mode">list,form,search</field>
+        <field name="view_mode">tree,form,search</field>
     </record>
     <menuitem name="Super Access Rights" id="access_rights_management_root" 
         groups="super_access_right_management.super_access_right_control_group"

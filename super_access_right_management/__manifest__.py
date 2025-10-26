@@ -11,7 +11,7 @@
     "currency": "USD",
     "version": "LGPL-3",
     'depends': ['web', 'base'],
-    "version": "18.0.0.0",
+    "version": "17.0.0.0",
     "data": [
         'security/ir.model.access.csv',
         'security/access_super_access_right_mgmt.xml',
