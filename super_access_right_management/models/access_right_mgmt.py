@@ -9,7 +9,7 @@ class AccessRightsMgmt(models.Model):
     is_readonly = fields.Boolean('Read Only The Whole System')
     active = fields.Boolean('Active', default=True)
     revoke_chatter = fields.Boolean('Revoke Chatter')
-    user_ids = fields.Many2many('res.users','access_management_users_rel','access_rights_mgmt_id', 'user_id', string="Access Users", domain=[
+    user_ids = fields.Many2many('res.users','access_management_users_rel','access_right_mgmt_id', 'user_id', string="Access Users", domain=[
                                 ('share', '=', False)])
     revoke_developer_mode = fields.Boolean('Revoke Developer Mode')
 
@@ -51,3 +51,13 @@ class AccessRightsMgmt(models.Model):
                     result = True
 
         return result
+    
+    def write(self, vals):
+        res = super(AccessRightsMgmt, self).write(vals)
+        self.env.registry.clear_cache()
+        return res
+
+    def unlink(self):
+        res = super(AccessRightsMgmt, self).unlink()
+        self.env.registry.clear_cache()
+        return res

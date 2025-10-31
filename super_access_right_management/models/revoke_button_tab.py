@@ -121,6 +121,7 @@ class RevokeButtonTab(models.Model):
                     action_button = doc.xpath("//button[@type='action']")
                     for btn in action_button:
                         string_value = btn.get('string')
+                        print("String value is -----------------",string_value)
                         if view == 'kanban' and not string_value:
                             try:
                                 string_value = btn.text if not btn.text.startswith('\n') else False
